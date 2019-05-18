@@ -1,27 +1,25 @@
 'use strict';
 
-const commandLineParser = require('./command-line-parser');
-const FileProcessingService = require('./file-conversion.service');
-const convertFiles = require('./file-convert-adaptor');
-
-/**
- * Parse user input and validate.
- */
-const inputFiles = commandLineParser.getInput();
-console.log('inputFiles', inputFiles);
+const userInput = require('./command-line-parser');
+const chalk = require('chalk');
+const CommandLineFileService = require('./file-conversion.service');
+const convertFiles = require('./adaptors/file-convert-adaptor');
 
 /**
  * Get an instance of our service.
  */
-const fileService = new FileProcessingService();
+const fileService = new CommandLineFileService(userInput);
 
 /**
- * Merge input files
- */
-fileService.process('merge', inputFiles);
-
-/**
- * Add new adapter to convert files, then use it.
+ * Register a new adapter to convert files. Allows operations other than the default of merge.
  */
 fileService.registerAdaptor('convert', convertFiles);
-fileService.process('convert', inputFiles, 'text');
+
+/**
+ * Process files based on the input.
+ */
+try {
+    fileService.process(userInput);
+} catch (error) {
+    console.log(chalk.red(error.message));
+}

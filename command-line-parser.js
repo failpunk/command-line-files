@@ -1,28 +1,37 @@
 'use strict';
 
+const parseArgs = require('minimist');
+
+// default operation is merge
+const defaults = { default: { o: 'merge' } };
+
 /**
  * Does some very basic command line parsing.
  */
 module.exports = {
+    /**
+     * Returns parsed arguments
+     */
     get args() {
-        return process.argv.slice(2);
+        return parseArgs(process.argv.slice(2), defaults);
     },
 
     /**
      * Get user input files
      */
-    getInput() {
-        return this.args.filter(arg => {
-            return arg[0] !== '-';
-        });
+    get files() {
+        return this.args._;
     },
 
-    /**
-     * Get command line flags
-     */
-    getFlags() {
-        return this.args.filter(arg => {
-            return arg[0] === '-';
-        });
+    get operation() {
+        return this.args.o;
+    },
+
+    getFlag(name) {
+        return this.args[name];
+    },
+
+    hasFlag(name) {
+        return this.getFlag(name) !== undefined;
     },
 };

@@ -11,6 +11,8 @@
     "author": "Justin Vencel <failpunk@gmail.com>",
     "license": "MIT",
     "dependencies": {
+        "chalk": "^2.4.2",
+        "minimist": "^1.2.0",
         "nodemon": "^1.19.0"
     }
 }

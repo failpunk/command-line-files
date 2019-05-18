@@ -1,6 +1,6 @@
 'use strict';
 
-const fileMergeAdaptor = require('./file-merge-adaptor.js');
+const fileMergeAdaptor = require('./adaptors/file-merge-adaptor');
 
 /**
  * Basic Servis to process files.
@@ -35,12 +35,17 @@ module.exports = class FileConversionService {
 
     /**
      * Generic method to call a given adaptor
+     * @param {Object} This should be the object from command-line-parser.js.
      */
-    process(name, ...params) {
-        if (!this.fileAdaptors[name]) {
-            throw new Error(`No Adaptor registered with the name ${name}!`);
+    process(input) {
+        if (!this.fileAdaptors[input.operation]) {
+            throw new Error(
+                `No adaptor has been registered with the name "${
+                    input.operation
+                }"!`
+            );
         }
 
-        this.fileAdaptors[name](...params);
+        this.fileAdaptors[input.operation](input.files, input.args);
     }
 };
