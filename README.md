@@ -2,6 +2,20 @@
 
 A very basic but extensible command line file processing utility.
 
+## Getting Started
+
+```
+$ git clone git@github.com:failpunk/command-line-files.git
+$ cd command-line-files
+$ npm i
+```
+or
+```
+$ git clone git@github.com:failpunk/command-line-files.git
+$ cd command-line-files
+$ yarn
+```
+
 ## Examples
 
 ### Merge Files
