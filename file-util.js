@@ -16,6 +16,15 @@ const fileService = new CommandLineFileService(userInput);
 fileService.registerAdaptor('convert', convertFiles);
 
 /**
+ * Encrypt Example...
+ */
+
+const excryptAdaptor = (files, { type }) => {
+    console.log(`Do some encrypting of type ${type}...`, files);
+};
+fileService.registerAdaptor('encrypt', excryptAdaptor);
+
+/**
  * Process files based on the input.
  */
 try {
